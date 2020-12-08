@@ -9,53 +9,52 @@ if has("win32")
     set diffexpr=MyDiff()
     function MyDiff()
         let opt = '-a --binary '
-    if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-    if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-    let arg1 = v:fname_in
-    if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-    let arg2 = v:fname_new
-    if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-    let arg3 = v:fname_out
-    if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-    let eq = ''
-    if $VIMRUNTIME =~ ' '
-      if &sh =~ '\<cmd'
-        let cmd = '""' . $VIMRUNTIME . '\diff"'
-        let eq = '"'
-      else
-        let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-      endif
-    else
-      let cmd = $VIMRUNTIME . '\diff'
-    endif
-    silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-  endfunction
+        if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+        if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+        let arg1 = v:fname_in
+        if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+        let arg2 = v:fname_new
+        if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+        let arg3 = v:fname_out
+        if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+        let eq = ''
+        if $VIMRUNTIME =~ ' '
+            if &sh =~ '\<cmd'
+                let cmd = '""' . $VIMRUNTIME . '\diff"'
+                let eq = '"'
+            else
+                let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+            endif
+        else
+            let cmd = $VIMRUNTIME . '\diff'
+        endif
+        silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+    endfunction
 
 else
-  if has("unix")
-    let s:uname = system("uname")
-    if s:uname == "Darwin\n"
-      "Mac options here
+    if has("unix")
+        let s:uname = system("uname")
+        if s:uname == "Darwin\n"
+            "Mac options here
+            set nomacligatures
+        endif
     endif
-  endif
 endif
-
 
 "
 " My Settings
 "
+set packpath=~/.vim/
 filetype plugin indent on
 syntax on
 
-
 if has("gui_running")
-	set guifont=JetBrains\ Mono:h15
-	" set guifont=Droid\ Sans\ Mono:h16
-	" set guifont=Menlo:h14
-	" set guifont=DejaVu\ Sans
-    set nomacligatures
+    " set guifont=JetBrains\ Mono:h15
+    " set guifont=Droid\ Sans\ Mono:h16
+    " set guifont=Menlo:h14
+    " set guifont=DejaVu\ Sans
     let g:tex_conceal = ''
-    
+
     set guioptions-=l
     set guioptions-=L
     set guioptions-=r
@@ -74,6 +73,12 @@ colorscheme hybrid
 
 "Set indentation
 set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+
+" Do not save workfiles in source dir
+set backupdir=$HOME/.vim/swap//
+set directory=$HOME/.vim/swap//
+set undodir=$HOME/.vim/swap//
+set undofile
 
 set nowrap
 set cursorline "causes slow ruby files
@@ -173,23 +178,34 @@ map <C-z> :cp<CR>
 map <C-x> :cn<CR>
 
 
+" == Maxscript ==
+if has("win32")
+    function! RunCurrentFileInMaxFunc()
+        let cmdstr = 'python "' . $HOME . '/.vim/misc/runmxs/runmxs.py" "' .expand("%:p"). '"'
+        let result = system(cmdstr)
+        echo result
+    endfunction
+    :command RunCurrentFileInMax call RunCurrentFileInMaxFunc()
+    map ,rm :RunCurrentFileInMax<CR>
+endif
+
 " == ALE ==
 packadd! ale
 " Disable enable: ALEToggle
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
-let g:ale_sign_error = '●'
+let g:ale_sign_error = 'x'
 let g:ale_sign_warning = '.'
 let g:ale_sign_column_always = 1
 let g:LanguageClient_useVirtualText = 1
 nmap <silent> <C-e> <Plug>(ale_next_wrap)
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'rust': ['rustfmt'],
-\}
+            \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \   'rust': ['rustfmt'],
+            \}
 let g:ale_linters = {
-\   'rust': ['rls'],
-\}
+            \   'rust': ['rls'],
+            \}
 " Use quicklist instead
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
@@ -212,6 +228,8 @@ let g:ale_lint_on_text_changed = 'never'
 " let g:ale_lint_on_insert_leave = 0
 " let g:ale_set_highlights = 0
 
+
+" == ==
 " Load all plugins now.
 " Plugins need to be added to runtimepath before helptags can be generated.
 packloadall
