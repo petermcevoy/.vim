@@ -1,1 +1,1 @@
-git clone --recurse-submodules https://github.com/petermcevoy/.vim
+`git clone --recurse-submodules git@github.com:petermcevoy/.vim.git`
