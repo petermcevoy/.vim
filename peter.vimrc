@@ -74,6 +74,10 @@ colorscheme hybrid
 "Set indentation
 set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 
+" Following makes searches case sensitive when there is an uppercase letter.
+set ignorecase
+set smartcase
+
 " Do not save workfiles in source dir
 set backupdir=$HOME/.vim/swap//
 set directory=$HOME/.vim/swap//
