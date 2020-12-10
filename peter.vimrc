@@ -36,7 +36,6 @@ else
         let s:uname = system("uname")
         if s:uname == "Darwin\n"
             "Mac options here
-            set nomacligatures
         endif
     endif
 endif
@@ -152,6 +151,7 @@ let g:netrw_list_hide=netrw_gitignore#Hide()
 " Snippets
 nnoremap ,sc :-1read $HOME/.vim/snippets/skeleton.c<CR>4jA
 nnoremap ,shtml :-1read $HOME/.vim/snippets/skeleton.html<CR>3jf>a
+nnoremap ,spy :-1read $HOME/.vim/snippets/skeleton.py<CR>
 
 " Disable hover tooltips -- slow ruby
 set noballooneval
