@@ -49,8 +49,8 @@ syntax on
 
 if has("gui_running")
     " set guifont=JetBrains\ Mono:h15
-    " set guifont=Droid\ Sans\ Mono:h16
-    " set guifont=Menlo:h14
+    " set guifont=Droid\ Sans\ Mono:h14
+    " set guifont=Menlo:h12
     " set guifont=DejaVu\ Sans
     let g:tex_conceal = ''
 
@@ -159,7 +159,8 @@ let g:netrw_nobeval = 1
 
 " reload .vimrc
 map ,vr :so $MYVIMRC<CR>
-map ,vc :vsplit $MYVIMRC<CR>
+map ,vc :vsplit ~/.vim/peter.vimrc<CR>
+map ,v.c :vsplit $MYVIMRC<CR>
 
 " Add to .vimrc to enable project-specific vimrc
 set exrc
