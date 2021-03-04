@@ -71,7 +71,33 @@ set background=dark
 colorscheme hybrid
 
 "Set indentation
-set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+" For indentation without tabs, the principle is to set 'expandtab', and set 'shiftwidth' and
+" 'softtabstop' to the same value, while leaving 'tabstop' at its default value.
+set shiftwidth=4 softtabstop=4 expandtab
+
+set listchars+=tab:>-
+set listchars+=eol:$
+
+" Show Tabs and trailing whitespace:
+highlight ExtraWhitespaceErrorHighlight ctermbg=yellow guibg=yellow
+highlight link ExtraWhitespaceError ExtraWhitespaceErrorHighlight
+highlight link TabError Error
+autocmd Syntax * syn match ExtraWhitespaceError / \+$/
+autocmd Syntax * syn match TabError /\t\+$/
+nnoremap ,l :call ToggleWhiteSpaceErrorHighlight()<cr>
+let g:white_space_error_enabled=1
+function! ToggleWhiteSpaceErrorHighlight()
+    if g:white_space_error_enabled
+        highlight link ExtraWhitespaceError Normal
+        highlight link TabError Normal
+        let g:white_space_error_enabled=0
+    else
+        highlight link ExtraWhitespaceError ExtraWhitespaceErrorHighlight
+        highlight link TabError Error
+        let g:white_space_error_enabled=1
+    endif
+endfunction
+
 
 " Following makes searches case sensitive when there is an uppercase letter.
 set ignorecase
@@ -97,7 +123,7 @@ set showcmd
 set mouse=a
 set history=1000
 set undolevels=1000
-:set colorcolumn=80
+:set colorcolumn=100
 
 " allow hidden buffers
 set hidden
