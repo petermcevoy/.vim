@@ -108,7 +108,7 @@ set smartcase
 set backupdir=$HOME/.vim/swap//
 set directory=$HOME/.vim/swap//
 set undodir=$HOME/.vim/swap//
-set undofile
+" set undofile "persistant undo
 
 set nowrap
 set cursorline "causes slow ruby files
@@ -138,7 +138,8 @@ set wildmode=longest:full,full
 set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.ico,*.DS_Store,*.swp
 set wildignore+=*.pdf,*.psd
 set wildignore+=*.o
-set wildignore+=node_modules/*,bower_components/*,.git/*
+set wildignore+=**/node_modules/*,bower_components/*,**/.git/*
+set wildignore+=log/*,tmp/*
 
 " Generate tags
 command! MakeTags !ctags -R .
