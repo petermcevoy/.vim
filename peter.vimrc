@@ -52,6 +52,7 @@ if has("gui_running")
     " set guifont=Droid\ Sans\ Mono:h14
     " set guifont=Menlo:h12
     " set guifont=DejaVu\ Sans
+    set guifont=Consolas:h12
     let g:tex_conceal = ''
 
     set guioptions-=l
