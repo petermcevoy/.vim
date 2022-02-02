@@ -48,8 +48,10 @@ filetype plugin indent on
 syntax on
 
 if has("gui_running")
+    set guifont=SF\ Mono\ Regular:h13
+    " set guifont=Overpass\ Mono:h14
     " set guifont=JetBrains\ Mono:h15
-    " set guifont=Droid\ Sans\ Mono:h14
+    " set guifont=Droid\ Sans\ Mono:h12
     " set guifont=Menlo:h12
     " set guifont=DejaVu\ Sans
     set guifont=Consolas:h12
@@ -74,7 +76,10 @@ colorscheme hybrid
 "Set indentation
 " For indentation without tabs, the principle is to set 'expandtab', and set 'shiftwidth' and
 " 'softtabstop' to the same value, while leaving 'tabstop' at its default value.
-set shiftwidth=4 softtabstop=4 expandtab
+set shiftwidth=4 softtabstop=4
+set tabstop=4
+set expandtab
+"set noexpandtab
 
 set listchars+=tab:>-
 set listchars+=eol:$
@@ -140,6 +145,8 @@ set wildignore+=*.pdf,*.psd
 set wildignore+=*.o
 set wildignore+=**/node_modules/*,bower_components/*,**/.git/*
 set wildignore+=log/*,tmp/*
+
+let g:netrw_list_hide= '.*\.swp$,.DS_Store,*/tmp/*,*.so,*.swp,*.zip,*.git,^\.\.\=/\=$'
 
 " Generate tags
 command! MakeTags !ctags -R .
